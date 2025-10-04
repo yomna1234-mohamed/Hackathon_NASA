@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chatbot</title>
+</head>
+<body>
+    <style>
+    .chat-logo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+    }
+    .chat-logo:hover {
+    transform: scale(1.1);
+    }
+    .chat-logo img {
+    width: 35px;
+    height: 35px;
+    }
+    </style>
+
+    
+    <div class="chat-logo" id="chatIcon">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712025.png" alt="Chatbot">
+    </div>
+
+    
+    <script>
+    (function(){
+    if(!window.chatbase || window.chatbase("getState")!=="initialized"){
+        window.chatbase=(...arguments)=>{
+        if(!window.chatbase.q){window.chatbase.q=[]}
+        window.chatbase.q.push(arguments)
+        };
+        window.chatbase=new Proxy(window.chatbase,{
+        get(target,prop){
+            if(prop==="q"){return target.q}
+            return(...args)=>target(prop,...args)
+        }
+        })
+    }
+
+    
+    const onLoad=function(){
+        const script=document.createElement("script");
+        script.src="https://www.chatbase.co/embed.min.js";
+        script.id="rc9vYwsKuUDp_KvOf5xkX";
+        script.domain="www.chatbase.co";
+        document.body.appendChild(script);
+    };
+
+    if(document.readyState==="complete"){onLoad()}
+    else{window.addEventListener("load",onLoad)}
+
+    
+    function openChatWhenReady() {
+        if (window.chatbase && typeof window.chatbase === "function") {
+        window.chatbase('openChat');
+        } else {
+        setTimeout(openChatWhenReady, 500);
+        }
+    }
+
+    
+    document.getElementById("chatIcon").addEventListener("click", openChatWhenReady);
+    })();
+    </script>
+
+
+
+</body>
+</html>

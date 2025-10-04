@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Challenge Suggestion Platform</title>
+    <style>
+        :root {
+            --dark-navy: #0d1b3a;
+            --navy: #1a2b5a;
+            --white: #ffffff;
+            --gray: #f5f7fa;
+            --medium-gray: #e1e5ee;
+            --dark-gray: #2c3e50;
+            --accent: #4a6fc7;
+            --success: #27ae60;
+            --warning: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: #0a192f;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .navbar .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #4dabf7;
+    }
+
+    .contact-btn {
+      border: 2px solid #4dabf7;
+      border-radius: 50px;
+      padding: 6px 18px;
+      color: #4dabf7;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      background-color: #4dabf7;
+      color: white;
+    }
+        
+        .nasa-logo {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .intro {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        
+        .intro p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .rules-section {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .rules-section h2 {
+            color: var(--dark-navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        .rules-list {
+            margin-bottom: 2rem;
+        }
+        
+        .rule-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--gray);
+            border-radius: 8px;
+            border-left: 4px solid var(--dark-navy);
+        }
+        
+        .rule-item h3 {
+            color: var(--dark-navy);
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-section {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .quiz-section h2 {
+            color: var(--dark-navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-display {
+            background-color: var(--dark-navy);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--gray);
+            border-radius: 8px;
+        }
+        
+        .quiz-question h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-navy);
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .suggest-section {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .suggest-section h2 {
+            color: var(--dark-navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--dark-navy);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--dark-navy);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: var(--navy);
+        }
+        
+        button:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+        }
+        
+        footer {
+            background-color: var(--dark-navy);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .success-message {
+            background-color: #e8f5e9;
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .error-message {
+            background-color: #ffebee;
+            color: var(--warning);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .challenge-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-card {
+            background-color: var(--white);
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            border-color: var(--dark-navy);
+            transform: translateY(-3px);
+        }
+        
+        .category-card.selected {
+            border-color: var(--dark-navy);
+            background-color: rgba(13, 27, 58, 0.1);
+        }
+        
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .existing-challenges {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .existing-challenges h2 {
+            color: var(--dark-navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        .challenge-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .challenge-item {
+            background-color: var(--gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .challenge-item h3 {
+            color: var(--dark-navy);
+            margin-bottom: 0.5rem;
+        }
+        
+        .challenge-meta {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: var(--medium-gray);
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--success);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .challenge-list, .challenge-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="NASA Logo">
+        NASA Kids
+        </div>
+    
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="challenges.html">Challenges</a>
+            <a href="suggest_challenge.html" style="color: #4dabf7;">suggest Challenge</a>
+            <a href="earth-map.html">Earth Map</a>
+            <a href="games.html" >Games</a>
+            <a href="sandbox.html">SandBox</a>
+            <a href="contact-us.html" class="contact-btn">Contact Us</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="nasa-logo">🚀</div>
+        <h1>NASA Challenge Suggestion Platform</h1>
+        <p class="subtitle">Contribute to NASA's mission by proposing innovative challenges for future space exploration and scientific discovery</p>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <p>Welcome to NASA's official challenge suggestion platform for young innovators.</p>
+            <p>Your ideas could help shape the future of space exploration and scientific research.</p>
+            <p>Before submitting your challenge proposal, please review our guidelines and complete the qualification quiz.</p>
+        </section>
+        
+        <section class="rules-section">
+            <h2>NASA Challenge Proposal Guidelines</h2>
+            <div class="rules-list">
+                <div class="rule-item">
+                    <h3>Scientific Relevance</h3>
+                    <p>Proposals must align with NASA's scientific priorities including astrophysics, heliophysics, planetary science, Earth science, and biological/physical sciences. Challenges should address current knowledge gaps in space exploration.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Technical Feasibility</h3>
+                    <p>Proposed challenges must be technically achievable within current or near-future NASA capabilities. Consider constraints of space environment, radiation, microgravity, and communication delays.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Educational Value</h3>
+                    <p>Challenges should promote STEM education and engage students in authentic scientific practices. Proposals must include clear learning objectives aligned with Next Generation Science Standards.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Innovation and Originality</h3>
+                    <p>Proposals should demonstrate novel approaches not currently addressed by existing NASA challenges. Research current NASA programs to ensure your idea offers unique contributions.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Safety and Ethics</h3>
+                    <p>All challenge proposals must comply with NASA safety protocols and ethical guidelines. No proposals involving hazardous materials, dangerous procedures, or unethical research methods will be considered.</p>
+                </div>
+                <div class="rule-item">
+                    <h3>Resource Considerations</h3>
+                    <p>Proposals should consider realistic budget, timeline, and resource requirements. Challenges must be achievable within typical educational or citizen science project constraints.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="existing-challenges">
+            <h2>Current NASA Challenge Programs</h2>
+            <p style="text-align: center; margin-bottom: 1.5rem;">Review existing NASA challenges to ensure your proposal offers a unique contribution:</p>
+            <div class="challenge-list">
+                <div class="challenge-item">
+                    <h3>CubeSat Launch Initiative</h3>
+                    <p class="challenge-meta">Category: Small Satellite Technology</p>
+                    <p>Design, build, and launch small satellite missions to address scientific questions and technology demonstrations.</p>
+                </div>
+                <div class="challenge-item">
+                    <h3>Space Robotics Challenge</h3>
+                    <p class="challenge-meta">Category: Robotics & Automation</p>
+                    <p>Develop software for robotic systems to perform tasks in simulated lunar and Martian environments.</p>
+                </div>
+                <div class="challenge-item">
+                    <h3>Human Exploration Rover Challenge</h3>
+                    <p class="challenge-meta">Category: Engineering Design</p>
+                    <p>Design and build human-powered rovers capable of traversing simulated extraterrestrial terrain.</p>
+                </div>
+                <div class="challenge-item">
+                    <h3>Space App Challenge</h3>
+                    <p class="challenge-meta">Category: Software & Data Science</p>
+                    <p>Develop applications and solutions using NASA's open data to address global challenges.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="quiz-section">
+            <h2>NASA Challenge Qualification Quiz</h2>
+            <div class="quiz-header">
+                <p>You must score at least 8/10 to submit a challenge proposal</p>
+                <div class="score-display">Score: <span id="currentScore">0</span>/10</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" id="quizProgress"></div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>1. Which NASA scientific division focuses on studying the Sun and its effects on the solar system?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q1a" name="q1" value="a">
+                        <label for="q1a">Astrophysics Division</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1b" name="q1" value="b">
+                        <label for="q1b">Heliophysics Division</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1c" name="q1" value="c">
+                        <label for="q1c">Planetary Science Division</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q1d" name="q1" value="d">
+                        <label for="q1d">Earth Science Division</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>2. What is the primary purpose of NASA's Technology Readiness Level (TRL) system?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q2a" name="q2" value="a">
+                        <label for="q2a">To evaluate the maturity of technologies for space missions</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2b" name="q2" value="b">
+                        <label for="q2b">To rank scientists by their publication records</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2c" name="q2" value="c">
+                        <label for="q2c">To determine funding allocation for research centers</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q2d" name="q2" value="d">
+                        <label for="q2d">To classify planets by their habitability potential</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>3. Which challenge would be MOST appropriate for NASA's educational programs?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q3a" name="q3" value="a">
+                        <label for="q3a">Designing a smartphone app for social media</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q3b" name="q3" value="b">
+                        <label for="q3b">Developing a method to detect microbial life in Martian soil analogs</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q3c" name="q3" value="c">
+                        <label for="q3c">Creating a new video game about aliens</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q3d" name="q3" value="d">
+                        <label for="q3d">Designing fashion for astronauts</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>4. What is a critical constraint for engineering solutions in space environments?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q4a" name="q4" value="a">
+                        <label for="q4a">Limited availability of electrical power</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q4b" name="q4" value="b">
+                        <label for="q4b">High levels of cosmic radiation</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q4c" name="q4" value="c">
+                        <label for="q4c">Extreme temperature variations</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q4d" name="q4" value="d">
+                        <label for="q4d">All of the above</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>5. Which NASA program allows students to design and launch small satellites?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q5a" name="q5" value="a">
+                        <label for="q5a">CubeSat Launch Initiative</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q5b" name="q5" value="b">
+                        <label for="q5b">Artemis Student Challenges</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q5c" name="q5" value="c">
+                        <label for="q5c">Microgravity University</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q5d" name="q5" value="d">
+                        <label for="q5d">Solar System Ambassadors</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>6. What is the main objective of NASA's Artemis program?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q6a" name="q6" value="a">
+                        <label for="q6a">To establish a sustainable human presence on the Moon</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q6b" name="q6" value="b">
+                        <label for="q6b">To send humans to Mars by 2030</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q6c" name="q6" value="c">
+                        <label for="q6c">To study asteroids in the Kuiper Belt</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q6d" name="q6" value="d">
+                        <label for="q6d">To build a space station around Venus</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>7. Which factor is NOT typically considered in NASA's technology development process?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q7a" name="q7" value="a">
+                        <label for="q7a">Fashion trends</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q7b" name="q7" value="b">
+                        <label for="q7b">Radiation hardening</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q7c" name="q7" value="c">
+                        <label for="q7c">Thermal vacuum testing</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q7d" name="q7" value="d">
+                        <label for="q7d">Vibration testing</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>8. What is the purpose of NASA's Open Source Agreement?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q8a" name="q8" value="a">
+                        <label for="q8a">To share software and technology with the public</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q8b" name="q8" value="b">
+                        <label for="q8b">To protect NASA's intellectual property</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q8c" name="q8" value="c">
+                        <label for="q8c">To establish international space treaties</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q8d" name="q8" value="d">
+                        <label for="q8d">To regulate commercial space flights</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>9. Which scientific discipline would be LEAST relevant to NASA's research priorities?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q9a" name="q9" value="a">
+                        <label for="q9a">Marine biology of deep ocean trenches</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q9b" name="q9" value="b">
+                        <label for="q9b">Exoplanet atmospheric characterization</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q9c" name="q9" value="c">
+                        <label for="q9c">Space radiation effects on human tissue</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q9d" name="q9" value="d">
+                        <label for="q9d">Cryogenic fluid management in microgravity</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <h3>10. What is a key consideration when designing experiments for the International Space Station?</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" id="q10a" name="q10" value="a">
+                        <label for="q10a">Compatibility with standard ISS rack interfaces</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q10b" name="q10" value="b">
+                        <label for="q10b">Minimal crew time requirements</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q10c" name="q10" value="c">
+                        <label for="q10c">Safety protocols for microgravity operations</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" id="q10d" name="q10" value="d">
+                        <label for="q10d">All of the above</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="submitQuiz" style="display: block; margin: 0 auto;">Submit Quiz</button>
+            <div id="quizResult" class="hidden"></div>
+        </section>
+        
+        <section class="suggest-section hidden" id="suggestionForm">
+            <h2>Submit Your NASA Challenge Proposal</h2>
+            <p style="text-align: center; margin-bottom: 1.5rem;">Congratulations on passing the qualification quiz! You may now submit your challenge proposal for NASA's consideration.</p>
+            
+            <form id="challengeForm" action="https://formspree.io/f/xdkwdkgn" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name (optional)</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Your Age</label>
+                    <input type="number" id="age" name="age" min="8" max="17">
+                </div>
+                
+                <div class="form-group">
+                    <label for="school">School/Organization (optional)</label>
+                    <input type="text" id="school" name="school">
+                </div>
+                
+                <div class="form-group">
+                    <label>Challenge Category</label>
+                    <div class="challenge-categories">
+                        <div class="category-card" data-category="astrophysics-cosmology">
+                            <div class="category-icon">🌌</div>
+                            <h3>Astrophysics & Cosmology</h3>
+                        </div>
+                        <div class="category-card" data-category="planetary-science">
+                            <div class="category-icon">🪐</div>
+                            <h3>Planetary Science</h3>
+                        </div>
+                        <div class="category-card" data-category="heliophysics">
+                            <div class="category-icon">☀️</div>
+                            <h3>Heliophysics</h3>
+                        </div>
+                        <div class="category-card" data-category="earth-science">
+                            <div class="category-icon">🌍</div>
+                            <h3>Earth Science</h3>
+                        </div>
+                        <div class="category-card" data-category="biological-physical-sciences">
+                            <div class="category-icon">🧬</div>
+                            <h3>Biological & Physical Sciences</h3>
+                        </div>
+                        <div class="category-card" data-category="space-technology">
+                            <div class="category-icon">🛰️</div>
+                            <h3>Space Technology</h3>
+                        </div>
+                        <div class="category-card" data-category="human-exploration">
+                            <div class="category-icon">👨‍🚀</div>
+                            <h3>Human Exploration</h3>
+                        </div>
+                        <div class="category-card" data-category="aeronautics">
+                            <div class="category-icon">✈️</div>
+                            <h3>Aeronautics</h3>
+                        </div>
+                    </div>
+                    <input type="hidden" id="category" name="category" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="challenge-title">Challenge Title</label>
+                    <input type="text" id="challenge-title" name="challenge-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="challenge-description">Scientific Rationale & Challenge Description</label>
+                    <textarea id="challenge-description" name="challenge-description" required placeholder="Describe the scientific basis for your challenge, the problem it addresses, and what participants would need to accomplish."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="challenge-objectives">Learning Objectives & Educational Outcomes</label>
+                    <textarea id="challenge-objectives" name="challenge-objectives" required placeholder="What specific STEM concepts would participants learn? What skills would they develop?"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="challenge-benefit">Potential Impact & Relevance to NASA Missions</label>
+                    <textarea id="challenge-benefit" name="challenge-benefit" required placeholder="How would this challenge benefit NASA's scientific or exploration goals? How does it align with current NASA priorities?"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="implementation">Implementation Considerations</label>
+                    <textarea id="implementation" name="implementation" placeholder="What resources would participants need? What safety considerations are important? What is a realistic timeline?"></textarea>
+                </div>
+                
+                <button type="submit" id="submitChallenge">Submit Challenge Proposal to NASA</button>
+            </form>
+            <div id="successMessage" class="success-message hidden">
+                <h3>Proposal Submitted Successfully!</h3>
+                <p>Thank you for your contribution to NASA's mission. Your challenge proposal has been received and will be reviewed by our education and science teams. You may be contacted for additional information if your proposal advances to the next stage of consideration.</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>NASA Challenge Suggestion Platform &copy; 2025 | This is an educational demonstration site</p>
+    </footer>
+
+    <!-- Chatbase Chatbot Script -->
+    <script>
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="rc9vYwsKuUDp_KvOf5xkX";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
+
+    <script>
+        // Quiz answers
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'a',
+            q3: 'b',
+            q4: 'd',
+            q5: 'a',
+            q6: 'a',
+            q7: 'a',
+            q8: 'a',
+            q9: 'a',
+            q10: 'd'
+        };
+        
+        // Category selection
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.category-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                document.getElementById('category').value = this.getAttribute('data-category');
+            });
+        });
+        
+        // Update score display as users answer questions
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateScoreDisplay);
+        });
+        
+        function updateScoreDisplay() {
+            let score = 0;
+            
+            // Check each question
+            for (let i = 1; i <= 10; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+                    score++;
+                }
+            }
+            
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('quizProgress').style.width = (score * 10) + '%';
+        }
+        
+        // Quiz submission
+        document.getElementById('submitQuiz').addEventListener('click', function() {
+            let score = 0;
+            let allAnswered = true;
+            
+            // Check each question
+            for (let i = 1; i <= 10; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (!selectedOption) {
+                    allAnswered = false;
+                    break;
+                }
+                
+                if (selectedOption.value === correctAnswers[questionName]) {
+                    score++;
+                }
+            }
+            
+            const resultDiv = document.getElementById('quizResult');
+            
+            if (!allAnswered) {
+                resultDiv.className = 'error-message';
+                resultDiv.innerHTML = '<h3>Incomplete Quiz</h3><p>Please answer all questions before submitting.</p>';
+                resultDiv.classList.remove('hidden');
+                return;
+            }
+            
+            if (score >= 8) {
+                resultDiv.className = 'success-message';
+                resultDiv.innerHTML = `<h3>Qualification Successful!</h3><p>Congratulations! You scored ${score}/10. You may now submit a challenge proposal to NASA.</p>`;
+                resultDiv.classList.remove('hidden');
+                document.getElementById('suggestionForm').classList.remove('hidden');
+                
+                // Scroll to the form
+                document.getElementById('suggestionForm').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                resultDiv.className = 'error-message';
+                resultDiv.innerHTML = `<h3>Qualification Not Met</h3><p>You scored ${score}/10. A minimum score of 8/10 is required to submit challenge proposals. Please review the guidelines and try again.</p>`;
+                resultDiv.classList.remove('hidden');
+            }
+        });
+        
+        // Challenge form submission
+        document.getElementById('challengeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const category = document.getElementById('category').value;
+            const title = document.getElementById('challenge-title').value;
+            const description = document.getElementById('challenge-description').value;
+            const objectives = document.getElementById('challenge-objectives').value;
+            const benefit = document.getElementById('challenge-benefit').value;
+            
+            if (!category || !title || !description || !objectives || !benefit) {
+                alert('Please fill in all required fields and select a category.');
+                return;
+            }
+            
+            // Submit the form to Formspree
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Show success message
+                    document.getElementById('successMessage').classList.remove('hidden');
+                    
+                    // Reset the form
+                    this.reset();
+                    document.querySelectorAll('.category-card').forEach(c => {
+                        c.classList.remove('selected');
+                    });
+                    
+                    // Scroll to success message
+                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert('There was a problem submitting your proposal. Please try again.');
+                }
+            }).catch(error => {
+                alert('There was a problem submitting your proposal. Please try again.');
+            });
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateScoreDisplay();
+        });
+    </script>
+</body>
+</html>
